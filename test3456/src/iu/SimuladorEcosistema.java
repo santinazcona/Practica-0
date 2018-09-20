@@ -61,21 +61,19 @@ public class SimuladorEcosistema extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				Point coordSuelta = e.getPoint();
-				if (tbMover.isSelected()) {  // Acción: mover elemento
-					// System.out.println( "Mover " + coordPulsacion + " a " + coordSuelta );
+				if (tbMover.isSelected()) { 
 					for (ElementoEcosistema ee : Ecosistema.getMundo().getElementos()) {
-						if (ee.getPanel().getBounds().contains( coordPulsacion )) {   // Si la pulsación está dentro del panel, se arrastra
+						if (ee.getPanel().getBounds().contains( coordPulsacion )) { 
 							coordSuelta.translate( -coordPulsacion.x, -coordPulsacion.y);
 							coordSuelta.translate( ee.getPanel().getLocation().x, ee.getPanel().getLocation().y );
 							System.out.println( "mover " + ee.getPanel().getLocation() + " a " + coordSuelta );
 							ee.getPanel().setLocation( coordSuelta );
 							pMundo.add( ee.getPanel() );
 							pMundo.revalidate();
-							break;   // Solo se mueve un panel (el primero que está en las coordenadas)
+							break; 
 						}
 					}
-				} else if (tbCrear.isSelected()) {  // Acción: crear elemento
-					// System.out.println( "Crear " + coordPulsacion + " a " + coordSuelta );
+				} else if (tbCrear.isSelected()) { 
 					ElementoEcosistema ee = null;
 					if (cbElemento.getSelectedItem().equals("Abejas")) {
 						ee = new ColoniaAbejas( "Colonia " + (Ecosistema.getMundo().getElementos().size()+1), 
@@ -111,18 +109,18 @@ public class SimuladorEcosistema extends JFrame {
 		bVida.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (bVida.getText().equals("Vida")) {  // Activar sistema
+				if (bVida.getText().equals("Vida")) { 
 					bVida.setText( "Parar" );
 					hilo = new Hilo();
 					hilo.start();
-				} else {  // Parar sistema
+				} else { 
 					bVida.setText( "Vida" );
 					if (hilo != null) hilo.parar();
 				}
 			}
 		});
 		
-		addWindowListener( new WindowAdapter() {  // Acabar el hilo cuando se desactiva la ventana
+		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowDeactivated(WindowEvent e) {
 				if (hilo!=null) hilo.parar();
@@ -142,7 +140,7 @@ public class SimuladorEcosistema extends JFrame {
 
 	private class Hilo extends Thread {
 		boolean activo = true;
-		long tick = 1000;  // 1 por segundo
+		long tick = 1000;
 		public Hilo() {
 		}
 		public void parar() {
