@@ -161,6 +161,5 @@ public class SimuladorEcosistema extends JFrame {
 				SimuladorEcosistema.this.pMundo.validate();
 			}
 		}
-	}
-	
+	}	
 }
